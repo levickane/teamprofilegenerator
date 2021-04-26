@@ -1,27 +1,46 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-// const generateIndexHTML = require('./indexCreator')
+const generateIndexHTML = require('./src/indexCreator');
 
 const questions = [
   {
     type: 'input',
-    message: 'What is your name?: ',
-    name: 'username'
+    message: 'Enter Employee id: ',
+    name: 'employeeId'
   },
   {
     type: 'input',
-    message: 'Where are you from?: ',
-    name: 'placeOfOrigin'
+    message: 'Enter Employee Name: ',
+    name: 'employeeName'
+  },
+  {
+    type: 'input',
+    message: 'Enter Employee Email: ',
+    name: 'employeeEmail'
+  },
+  {
+    type: 'list',
+    message: 'What is your role?: ',
+    name: 'role',
+    choices: ['Manager', 'Engineer', 'Intern']
+  },
+  {
+    type: 'input',
+    message: 'What is your office number?: ',
+    name: 'officeNumber',
+    when: (answers) => answers.role === 'Manager'
   },
   {
     type: 'input',
     message: 'What is your github username?: ',
-    name: 'github'
+    name: 'githubName',
+    when: (answers) => answers.role === 'Engineer'
   },
   {
     type: 'input',
-    message: 'What is your Linkedin?: ',
-    name: 'linkedin'
+    message: 'What school do you attend?: ',
+    name: 'school',
+    when: (answers) => answers.role === 'Intern'
   }
 ];
 
