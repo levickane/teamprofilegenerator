@@ -1,111 +1,110 @@
-function generateIndexHTML(data) {
-  return `
-  <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-    />
-    <title>Document</title>
-  </head>
-  <div class="jumbotron jumbotron-fluid bg-danger">
-    <div class="container">
-      <h1 class="display-4 text-center text-white">My Team</h1>
-    </div>
-  </div>
-  <body>
-    <div
-      class="container row row-col-sm-12 row-col-md-3 d-flex justify-content-center mx-auto"
-    >
-      <div class="card m-3" style="width: 17em">
+const generateIndexHTML = (team) => {
+  const createManager = (manager) => {
+    return `<div class="card m-3" style="width: 17em">
         <div class="card-header bg-primary text-white">
           <h1>Name</h1>
           <h2><i class="bi bi-cup-fill"></i> Manager</h2>
         </div>
         <div class="card-body bg-light">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID:</li>
-            <li class="list-group-item">Email:</li>
-            <li class="list-group-item">Office Number:</li>
+            <li class="list-group-item">ID: ${manager.getId()}</li>
+            <li class="list-group-item">Email: ${manager.getEmail()}</li>
+            <li class="list-group-item">Office Number: ${manager.getOfficeNumber()}</li>
           </ul>
         </div>
-      </div>
-      <div class="card m-3" style="width: 17em">
-        <div class="card-header bg-primary text-white">
-          <h1>Name</h1>
-          <h2><i class="bi bi-tools"></i> Engineer</h2>
-        </div>
-        <div class="card-body bg-light">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID:</li>
-            <li class="list-group-item">Email:</li>
-            <li class="list-group-item">GitHub:</li>
-          </ul>
-        </div>
-      </div>
-      <div class="card m-3" style="width: 17em">
-        <div class="card-header bg-primary text-white">
-          <h1>Name</h1>
-          <h2><i class="bi bi-tools"></i> Engineer</h2>
-        </div>
-        <div class="card-body bg-light">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID:</li>
-            <li class="list-group-item">Email:</li>
-            <li class="list-group-item">GitHub:</li>
-          </ul>
-        </div>
-      </div>
-      <div class="card m-3" style="width: 17em">
-        <div class="card-header bg-primary text-white">
-          <h1>Name</h1>
-          <h2><i class="bi bi-tools"></i>Engineer</h2>
-        </div>
-        <div class="card-body bg-light">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID:</li>
-            <li class="list-group-item">Email:</li>
-            <li class="list-group-item">GitHub:</li>
-          </ul>
-        </div>
-      </div>
-      <div class="card m-3" style="width: 17em">
-        <div class="card-header bg-primary text-white">
-          <h1>Name</h1>
-          <h2><i class="bi bi-eyeglasses"></i> Intern</h2>
-        </div>
-        <div class="card-body bg-light">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID:</li>
-            <li class="list-group-item">Email:</li>
-            <li class="list-group-item">University:</li>
-          </ul>
-        </div>
+      </div>`;
+  };
+  const createEngineer = (engineer) => {
+    return `<div class="card m-3" style="width: 17em">
+    <div class="card-header bg-primary text-white">
+      <h1>Name</h1>
+      <h2><i class="bi bi-tools"></i> Engineer</h2>
+    </div>
+    <div class="card-body bg-light">
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${engineer.getId()}</li>
+      <li class="list-group-item">Email: ${engineer.getEmail()}</li>
+      <li class="list-group-item">Github: ${engineer.getGithub()}</li>
+      </ul>
+    </div>
+  </div>`;
+  };
+  const createIntern = (intern) => {
+    return `<div class="card m-3" style="width: 17em">
+    <div class="card-header bg-primary text-white">
+      <h1>Name</h1>
+      <h2><i class="bi bi-eyeglasses"></i> Intern</h2>
+    </div>
+    <div class="card-body bg-light">
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${intern.getId()}</li>
+      <li class="list-group-item">Email: ${intern.getEmail()}</li>
+      <li class="list-group-item">School: ${intern.getGetSchool()}</li>
+      </ul>
+    </div>
+  </div>`;
+  };
+  let pageSetup = [];
+  pageSetup.push(
+    team
+      .filter((member) => member.getRole() === 'Manager')
+      .map((manager) => createManager(manager))
+  );
+  pageSetup.push(
+    team
+      .filter((member) => member.getRole() === 'Engineer')
+      .map((engineer) => createEngineer(engineer))
+  );
+  pageSetup.push(
+    team
+      .filter((member) => member.getRole() === 'Intern')
+      .map((intern) => createIntern(intern))
+  );
+  return pageSetup.join('');
+};
+
+module.exports = (members) => {
+  return `
+    <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+        crossorigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      />
+      <title>Document</title>
+    </head>
+    <div class="jumbotron jumbotron-fluid bg-danger">
+      <div class="container">
+        <h1 class="display-4 text-center text-white">My Team</h1>
       </div>
     </div>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
-  `;
-}
-
-module.exports = generateIndexHTML;
+    <body>
+      <div
+        class="container row row-col-sm-12 row-col-md-3 d-flex justify-content-center mx-auto"
+      >
+        ${generateIndexHTML(members)}
+      </div>
+      <script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"
+      ></script>
+    </body>
+  </html>
+    `;
+};
