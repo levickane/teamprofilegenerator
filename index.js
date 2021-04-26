@@ -17,11 +17,12 @@ const questions = [
     validate: function (input) {
       // Declare function as asynchronous, and save the done callback
       input = parseInt(input);
+      console.log(input);
       var done = this.async();
 
       // Do async stuff
       setTimeout(function () {
-        if (typeof input != 'number') {
+        if (typeof input != 'number' || isNaN(input)) {
           // Pass the return value in the done callback
           done('You need to provide a number');
           return;
