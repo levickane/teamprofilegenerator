@@ -48,6 +48,8 @@ const questions = [
   }
 ];
 
+const teamArray = [];
+
 function buildTeam() {
   fs.writeFile(
     './dist/team.html',
@@ -57,7 +59,6 @@ function buildTeam() {
   );
 }
 
-const teamArray = [];
 function init() {
   inquirer.prompt(questions).then((response) => {
     switch (response.role) {
@@ -91,8 +92,6 @@ function init() {
         teamArray.push(intern);
         init();
         break;
-      case 'Done Adding Employees':
-        return buildTeam();
       default:
         return buildTeam();
     }
