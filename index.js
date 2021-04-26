@@ -14,6 +14,22 @@ const questions = [
     type: 'input',
     message: 'Enter Employee id: ',
     name: 'employeeId',
+    validate: function (input) {
+      // Declare function as asynchronous, and save the done callback
+      input = parseInt(input);
+      var done = this.async();
+
+      // Do async stuff
+      setTimeout(function () {
+        if (typeof input != 'number') {
+          // Pass the return value in the done callback
+          done('You need to provide a number');
+          return;
+        }
+        // Pass the return value in the done callback
+        done(true);
+      }, 300);
+    },
     when: (answers) => answers.role !== 'Done Adding Employees'
   },
   {
