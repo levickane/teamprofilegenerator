@@ -8,22 +8,25 @@ const questions = [
     type: 'list',
     message: 'What is your role?: ',
     name: 'role',
-    choices: ['Manager', 'Engineer', 'Intern']
+    choices: ['Manager', 'Engineer', 'Intern', 'Done Adding Employees']
   },
   {
     type: 'input',
     message: 'Enter Employee id: ',
-    name: 'employeeId'
+    name: 'employeeId',
+    when: (answers) => answers.role !== 'Done Adding Employees'
   },
   {
     type: 'input',
     message: 'Enter Employee Name: ',
-    name: 'employeeName'
+    name: 'employeeName',
+    when: (answers) => answers.role !== 'Done Adding Employees'
   },
   {
     type: 'input',
     message: 'Enter Employee Email: ',
-    name: 'employeeEmail'
+    name: 'employeeEmail',
+    when: (answers) => answers.role !== 'Done Adding Employees'
   },
   {
     type: 'input',
@@ -42,27 +45,21 @@ const questions = [
     message: 'What school do you attend?: ',
     name: 'school',
     when: (answers) => answers.role === 'Intern'
-  },
-  {
-    type: 'list',
-    message: 'Would you add more employes?: ',
-    name: 'addMore',
-    choices: ['YES', 'NO']
   }
 ];
 
 function buildTeam() {
-  fs.writeFile('team.html', generateIndexHTML(teamArray), 'utf-8', (err) =>
-    err ? console.error(err) : console.log('Success!')
+  fs.writeFile(
+    './dist/team.html',
+    generateIndexHTML(teamArray),
+    'utf-8',
+    (err) => (err ? console.error(err) : console.log('Success!'))
   );
 }
 
 const teamArray = [];
 function init() {
   inquirer.prompt(questions).then((response) => {
-    if (response.addMore === 'NO') {
-      return buildTeam();
-    }
     switch (response.role) {
       case 'Manager':
         const manager = new Manager(
@@ -94,10 +91,11 @@ function init() {
         teamArray.push(intern);
         init();
         break;
+      case 'Done Adding Employees':
+        return buildTeam();
       default:
         return buildTeam();
     }
-    console.log(teamArray);
   });
 }
 
