@@ -6,7 +6,7 @@ const { Intern, Manager, Engineer } = require('./lib/classes');
 const questions = [
   {
     type: 'list',
-    message: 'What is your role?: ',
+    message: "Select employee's role: ",
     name: 'role',
     choices: ['Manager', 'Engineer', 'Intern', 'Done Adding Employees']
   },
@@ -17,7 +17,6 @@ const questions = [
     validate: function (input) {
       // Declare function as asynchronous, and save the done callback
       input = parseInt(input);
-      console.log(input);
       var done = this.async();
 
       // Do async stuff
@@ -27,9 +26,15 @@ const questions = [
           done('You need to provide a number');
           return;
         }
+        teamArray.forEach((role) => {
+          if (input == role.id) {
+            done('That id already exists');
+            return;
+          }
+        });
         // Pass the return value in the done callback
         done(true);
-      }, 300);
+      }, 100);
     },
     when: (answers) => answers.role !== 'Done Adding Employees'
   },
@@ -43,18 +48,68 @@ const questions = [
     type: 'input',
     message: 'Enter Employee Email: ',
     name: 'employeeEmail',
+    validate: function (input) {
+      // Declare function as asynchronous, and save the done callback
+      var done = this.async();
+
+      // Do async stuff
+      setTimeout(function () {
+        if (!validateEmail(input)) {
+          // Pass the return value in the done callback
+          done('You need to provide legit email');
+          return;
+        }
+        teamArray.forEach((role) => {
+          if (input == role.email) {
+            done('That email already exists');
+            return;
+          }
+        });
+        // Pass the return value in the done callback
+        done(true);
+      }, 100);
+    },
     when: (answers) => answers.role !== 'Done Adding Employees'
   },
   {
     type: 'input',
     message: 'What is your office number?: ',
     name: 'officeNumber',
+    validate: function (input) {
+      input = parseInt(input);
+      var done = this.async();
+      setTimeout(function () {
+        if (typeof input != 'number' || isNaN(input)) {
+          done('You need to provide a number');
+          return;
+        }
+        teamArray.forEach((role) => {
+          if (input == role.officeNumber) {
+            done('That office is already occupado');
+            return;
+          }
+        });
+        done(true);
+      }, 100);
+    },
     when: (answers) => answers.role === 'Manager'
   },
   {
     type: 'input',
     message: 'What is your github username?: ',
     name: 'githubName',
+    validate: function (input) {
+      var done = this.async();
+      setTimeout(function () {
+        teamArray.forEach((role) => {
+          if (input == role.githubName) {
+            done('That username belongs to someone else');
+            return;
+          }
+        });
+        done(true);
+      }, 1000);
+    },
     when: (answers) => answers.role === 'Engineer'
   },
   {
@@ -65,6 +120,13 @@ const questions = [
   }
 ];
 
+function validateEmail(email) {
+  {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+}
+
 const teamArray = [];
 
 function buildTeam() {
@@ -72,7 +134,7 @@ function buildTeam() {
     './dist/team.html',
     generateIndexHTML(teamArray),
     'utf-8',
-    (err) => (err ? console.error(err) : console.log('Success!'))
+    (err) => (err ? console.error(err) : console.log('Generating HTML...'))
   );
 }
 
