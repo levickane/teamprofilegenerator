@@ -25,7 +25,7 @@ While in the project's root folder, in the terminal, you'll type
 
 and you'll be prompted with a series of questions for user input. The user's input is what will be generated to the new HTML file.
 
-<!-- ![Video](./utils/ReadmeGen.gif) -->
+[Follow this link](https://drive.google.com/file/d/1o8y57rf8UP0i2jTx9yIOLBkmeH_246zb/view) for a video walkthrough of how the program works
 
 ## License
 
