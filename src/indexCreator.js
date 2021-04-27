@@ -63,7 +63,7 @@ const generateIndexHTML = (team) => {
   return pageSetup.join('');
 };
 
-module.exports = (members) => {
+module.exports = (team) => {
   return `
     <!DOCTYPE html>
   <html lang="en">
@@ -92,7 +92,7 @@ module.exports = (members) => {
       <div
         class="container row row-col-sm-12 row-col-md-3 d-flex justify-content-center mx-auto"
       >
-        ${generateIndexHTML(members)}
+        ${generateIndexHTML(team)}
       </div>
       <script
         src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
