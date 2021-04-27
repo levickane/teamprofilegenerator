@@ -102,6 +102,10 @@ const questions = [
     validate: function (input) {
       var done = this.async();
       setTimeout(function () {
+        if (input == '') {
+          done('You need to enter your username');
+          return;
+        }
         teamArray.forEach((role) => {
           if (input == role.github && input === '') {
             done('That username belongs to someone else');
@@ -109,7 +113,7 @@ const questions = [
           }
         });
         done(true);
-      }, 1000);
+      }, 100);
     },
     when: (answers) => answers.role === 'Engineer'
   },
