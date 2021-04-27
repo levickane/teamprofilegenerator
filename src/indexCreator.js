@@ -81,7 +81,7 @@ module.exports = (team) => {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
       />
-      <title>Document</title>
+      <title>My Team</title>
     </head>
     <div class="jumbotron jumbotron-fluid bg-danger">
       <div class="container">
