@@ -2,7 +2,7 @@ const generateIndexHTML = (team) => {
   const createManager = (manager) => {
     return `<div class="card m-3" style="width: 17em">
         <div class="card-header bg-primary text-white">
-          <h1>Name</h1>
+          <h1>${manager.getName()}</h1>
           <h2><i class="bi bi-cup-fill"></i> Manager</h2>
         </div>
         <div class="card-body bg-light">
@@ -17,7 +17,7 @@ const generateIndexHTML = (team) => {
   const createEngineer = (engineer) => {
     return `<div class="card m-3" style="width: 17em">
     <div class="card-header bg-primary text-white">
-      <h1>Name</h1>
+      <h1>${engineer.getName()}</h1>
       <h2><i class="bi bi-tools"></i> Engineer</h2>
     </div>
     <div class="card-body bg-light">
@@ -32,7 +32,7 @@ const generateIndexHTML = (team) => {
   const createIntern = (intern) => {
     return `<div class="card m-3" style="width: 17em">
     <div class="card-header bg-primary text-white">
-      <h1>Name</h1>
+      <h1>${intern.getName()}</h1>
       <h2><i class="bi bi-eyeglasses"></i> Intern</h2>
     </div>
     <div class="card-body bg-light">

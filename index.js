@@ -93,7 +93,7 @@ const questions = [
       var done = this.async();
       setTimeout(function () {
         teamArray.forEach((role) => {
-          if (input == role.githubName) {
+          if (input == role.github) {
             done('That username belongs to someone else');
             return;
           }
