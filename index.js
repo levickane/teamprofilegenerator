@@ -46,10 +46,9 @@ const questions = [
     name: 'employeeName',
     when: (answers) => answers.role !== 'Done Adding Employees',
     validate: function (input) {
-      input = parseInt(input);
       var done = this.async();
       setTimeout(function () {
-        if (typeof input === null) {
+        if (input == '') {
           done('You need to provide a name');
           return;
         }
@@ -104,7 +103,7 @@ const questions = [
       var done = this.async();
       setTimeout(function () {
         teamArray.forEach((role) => {
-          if (input == role.github || input == null) {
+          if (input == role.github && input === '') {
             done('That username belongs to someone else');
             return;
           }
@@ -120,10 +119,9 @@ const questions = [
     name: 'school',
     when: (answers) => answers.role === 'Intern',
     validate: function (input) {
-      input = parseInt(input);
       var done = this.async();
       setTimeout(function () {
-        if (input == null) {
+        if (input == '') {
           done('You need to provide a school name');
           return;
         }
