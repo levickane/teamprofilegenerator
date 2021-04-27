@@ -60,7 +60,7 @@ const generateIndexHTML = (team) => {
       .filter((member) => member.getRole() === 'Intern')
       .map((intern) => createIntern(intern))
   );
-  return pageSetup.join('').replace(',', ' ');
+  return pageSetup.join('');
 };
 
 module.exports = (team) => {

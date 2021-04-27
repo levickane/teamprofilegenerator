@@ -23,7 +23,7 @@ const questions = [
 
       // Do async stuff
       setTimeout(function () {
-        if (typeof input != 'number' || isNaN(input)) {
+        if (typeof input != 'number' || isNaN(input) || input == null) {
           // Pass the return value in the done callback
           done('You need to provide a number');
           return;
@@ -44,7 +44,18 @@ const questions = [
     type: 'input',
     message: 'Enter Employee Name: ',
     name: 'employeeName',
-    when: (answers) => answers.role !== 'Done Adding Employees'
+    when: (answers) => answers.role !== 'Done Adding Employees',
+    validate: function (input) {
+      input = parseInt(input);
+      var done = this.async();
+      setTimeout(function () {
+        if (typeof input === null) {
+          done('You need to provide a name');
+          return;
+        }
+        done(true);
+      }, 100);
+    }
   },
   {
     type: 'input',
@@ -53,7 +64,7 @@ const questions = [
     validate: function (input) {
       var done = this.async();
       setTimeout(function () {
-        if (!validateEmail(input)) {
+        if (!validateEmail(input) || input == null) {
           done('You need to provide legit email');
           return;
         }
@@ -76,7 +87,7 @@ const questions = [
       input = parseInt(input);
       var done = this.async();
       setTimeout(function () {
-        if (typeof input != 'number' || isNaN(input)) {
+        if (typeof input != 'number' || isNaN(input) || input == null) {
           done('You need to provide a number');
           return;
         }
@@ -93,7 +104,7 @@ const questions = [
       var done = this.async();
       setTimeout(function () {
         teamArray.forEach((role) => {
-          if (input == role.github) {
+          if (input == role.github || input == null) {
             done('That username belongs to someone else');
             return;
           }
@@ -107,7 +118,18 @@ const questions = [
     type: 'input',
     message: 'What school do you attend?: ',
     name: 'school',
-    when: (answers) => answers.role === 'Intern'
+    when: (answers) => answers.role === 'Intern',
+    validate: function (input) {
+      input = parseInt(input);
+      var done = this.async();
+      setTimeout(function () {
+        if (input == null) {
+          done('You need to provide a school name');
+          return;
+        }
+        done(true);
+      }, 100);
+    }
   }
 ];
 
