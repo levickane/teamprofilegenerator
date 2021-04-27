@@ -3,12 +3,14 @@ const fs = require('fs');
 const generateIndexHTML = require('./src/indexCreator');
 const { Intern, Manager, Engineer } = require('./lib/classes');
 
+let employeeRoles = ['Manager', 'Engineer', 'Intern', 'Done Adding Employees'];
+
 const questions = [
   {
     type: 'list',
     message: "Select employee's role: ",
     name: 'role',
-    choices: ['Manager', 'Engineer', 'Intern', 'Done Adding Employees']
+    choices: employeeRoles
   },
   {
     type: 'input',
@@ -49,13 +51,9 @@ const questions = [
     message: 'Enter Employee Email: ',
     name: 'employeeEmail',
     validate: function (input) {
-      // Declare function as asynchronous, and save the done callback
       var done = this.async();
-
-      // Do async stuff
       setTimeout(function () {
         if (!validateEmail(input)) {
-          // Pass the return value in the done callback
           done('You need to provide legit email');
           return;
         }
@@ -65,7 +63,6 @@ const questions = [
             return;
           }
         });
-        // Pass the return value in the done callback
         done(true);
       }, 100);
     },
@@ -83,12 +80,6 @@ const questions = [
           done('You need to provide a number');
           return;
         }
-        teamArray.forEach((role) => {
-          if (input == role.officeNumber) {
-            done('That office is already occupado');
-            return;
-          }
-        });
         done(true);
       }, 100);
     },
@@ -140,6 +131,10 @@ function buildTeam() {
 
 function init() {
   inquirer.prompt(questions).then((response) => {
+    //this allows only 1 manager to be made for the entire program
+    if (response.role === 'Manager') {
+      employeeRoles.shift();
+    }
     switch (response.role) {
       case 'Manager':
         const manager = new Manager(
