@@ -50,16 +50,18 @@ const generateIndexHTML = (team) => {
       .filter((member) => member.getRole() === 'Manager')
       .map((manager) => createManager(manager))
   );
-  pageSetup.push(
-    team
-      .filter((member) => member.getRole() === 'Engineer')
-      .map((engineer) => createEngineer(engineer))
-  );
-  pageSetup.push(
-    team
-      .filter((member) => member.getRole() === 'Intern')
-      .map((intern) => createIntern(intern))
-  );
+  const engineerteam = team
+    .filter((member) => member.getRole() === 'Engineer')
+    .map((engineer) => createEngineer(engineer));
+
+  pageSetup.push(engineerteam.join(' '));
+
+  const internteam = team
+    .filter((member) => member.getRole() === 'Intern')
+    .map((intern) => createIntern(intern));
+
+  pageSetup.push(internteam.join(''));
+
   return pageSetup.join('');
 };
 
