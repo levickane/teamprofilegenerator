@@ -50,21 +50,29 @@ const generateIndexHTML = (team) => {
       .filter((member) => member.getRole() === 'Manager')
       .map((manager) => createManager(manager))
   );
+  //this engineerTeam variable is an array that is returned by filter.
   const engineerteam = team
     .filter((member) => member.getRole() === 'Engineer')
     .map((engineer) => createEngineer(engineer));
+  //this joins the engineerTeam array and then pushes it to the pageSetup array
+  pageSetup.push(engineerteam.join(''));
 
-  pageSetup.push(engineerteam.join(' '));
-
+  //this internTeam variable is an array that is returned by filter.
   const internteam = team
     .filter((member) => member.getRole() === 'Intern')
     .map((intern) => createIntern(intern));
 
+  //This joins the internTeam array and then pushes it to the pageSetup array
   pageSetup.push(internteam.join(''));
 
+  //This joins the pageSetup array and then returns it.
   return pageSetup.join('');
 };
 
+//this export takes in an arugment of team, which is the teamArray from index.js.
+//The html will be returned with the generateIndexHTML().
+//the generateIndexHTML() creates and calls the functions to create a manager, engineer and intern
+//div card which then displays them to the HTML
 module.exports = (team) => {
   return `
     <!DOCTYPE html>

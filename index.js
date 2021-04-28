@@ -3,6 +3,7 @@ const fs = require('fs');
 const generateIndexHTML = require('./src/indexCreator');
 const { Intern, Manager, Engineer } = require('./lib/classes');
 
+//this sets the employee role choices so that they can be modified later
 let employeeRoles = ['Manager', 'Engineer', 'Intern', 'Done Adding Employees'];
 
 const questions = [
@@ -135,6 +136,7 @@ const questions = [
   }
 ];
 
+//this function validates an email address
 function validateEmail(email) {
   {
     var re = /\S+@\S+\.\S+/;
@@ -142,8 +144,10 @@ function validateEmail(email) {
   }
 }
 
+//this sets the teamArray which will be passed into the generateIndexHTML()
 const teamArray = [];
 
+//this writes the newly generated html to a file called team.html in the dist/ folder
 function buildTeam() {
   fs.writeFile(
     './dist/team.html',
@@ -160,6 +164,7 @@ function init() {
       employeeRoles.shift();
     }
     switch (response.role) {
+      //this creates a new instance of Manager
       case 'Manager':
         const manager = new Manager(
           response.employeeName,
@@ -167,9 +172,12 @@ function init() {
           response.employeeEmail,
           response.officeNumber
         );
+        //this pushes manager to teamArray.
         teamArray.push(manager);
+        //after pushing to teamArray we start the promp again
         init();
         break;
+      //this creates a new instance of Engineer
       case 'Engineer':
         const engineer = new Engineer(
           response.employeeName,
@@ -177,9 +185,12 @@ function init() {
           response.employeeEmail,
           response.githubName
         );
+        //this pushes engineer to the teamArray
         teamArray.push(engineer);
+        //after pushing to the teamArray we start the promp again
         init();
         break;
+      //this creats a new instance of Intern
       case 'Intern':
         const intern = new Intern(
           response.employeeName,
@@ -187,10 +198,13 @@ function init() {
           response.employeeEmail,
           response.school
         );
+        //this pushes intern to the teamArray
         teamArray.push(intern);
+        //after pushing to the teamArray we start the promp again
         init();
         break;
       default:
+        //if no new instances are being created, then the buildTeam function is ran
         return buildTeam();
     }
   });
