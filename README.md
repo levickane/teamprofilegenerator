@@ -25,7 +25,7 @@ While in the project's root folder, in the terminal, you'll type
 
 and you'll be prompted with a series of questions for user input. The user's input is what will be generated to the new HTML file.
 
-[Follow this link](https://drive.google.com/file/d/1pxjPKc8dvnO2Vw5LJyOyQHqKVjINuLzl/view) for a video walkthrough of how the program works
+[Follow this link](https://drive.google.com/file/d/1pxjPKc8dvnO2Vw5LJyOyQHqKVjINuLzl/view) for a video walkthrough of how the program works.
 
 ## License
 
@@ -49,4 +49,4 @@ Part of this was built in collaboration with [Maria Nevarez](https://github.com/
 
 ## Questions
 
-If you have any questions, reach out to me through my [Github](www.github.com/levickane) .
+If you have any questions, reach out to me through my [Github](www.github.com/levickane).
